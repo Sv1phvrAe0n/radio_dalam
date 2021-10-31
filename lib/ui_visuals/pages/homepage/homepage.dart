@@ -12,18 +12,15 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<RadioBloc>(
-        create: (context) => RadioBloc(radiosRepository)..add(AutomaticLoad()),
-      child: SafeArea(
-          child: Scaffold(
-              backgroundColor: Color(0xff1D071B),
-              body: Column(
-                children: [
-                  RadiosList(),
-                ],
-              )
-          )
-      )
-      );
+    return SafeArea(
+        child: Scaffold(
+            backgroundColor: Color(0xff1D071B),
+            body: Column(
+              children: [
+                RadiosList(),
+              ],
+            )
+        )
+    );
   }
 }

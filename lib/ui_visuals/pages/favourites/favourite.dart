@@ -11,17 +11,13 @@ class Favourite extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('build Favourite');
-    return BlocProvider<RadioBloc>(
-        create: (context) => RadioBloc(radiosRepository)..add(FavouritesLoad()),
-        child: SafeArea(
-            child: Scaffold(
-                backgroundColor: Color(0xff1D071B),
-                body: Column(
-                  children: [
-                    FavouritesList(),
-                  ],
-                )
+    return SafeArea(
+        child: Scaffold(
+            backgroundColor: Color(0xff1D071B),
+            body: Column(
+              children: [
+                FavouritesList(),
+              ],
             )
         )
     );

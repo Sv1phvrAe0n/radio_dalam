@@ -35,7 +35,6 @@ class RadioBloc extends Bloc<UserEvent, RadioState> {
     Stream<RadioState> mapEventToState(UserEvent event) async* {
         print('эвент типа: $event');
              if(event is AutomaticLoad) {yield* _fetchStations();}
-        else if(event is FavouritesLoad) {yield* _initFavourites(); }
         else if(event is StationSelect) {yield* _playAndChange(event); }
         else if(event is ActionsWithFavourites) {yield* _favourites(event);}
         else yield ErrorState();
@@ -45,15 +44,6 @@ class RadioBloc extends Bloc<UserEvent, RadioState> {
     try {
       _stations = radiosRepository.getRadio();
       yield _createLoadedState();
-    } on Exception catch (e) {
-      yield ErrorState();
-    }
-  }
-
-  Stream<RadioState> _initFavourites() async* {
-    try {
-      // favStations = [];
-      yield _createFavStations();
     } on Exception catch (e) {
       yield ErrorState();
     }
@@ -119,14 +109,14 @@ Stream<RadioState> _playAndChange (StationSelect event) async* {
     if(_favouriteStation == null) {
       _favouriteStation = event.favouriteStation;
       favStations.add(_favouriteStation);
-      yield _createFavStations();
+      // yield _createFavStations();
       yield _createLoadedState();
       print('кейс нулл, станция $_favouriteStation добавлена в список $favStations');
     }
 
     else if(event.favouriteStation.isFavourite == false) {
       favStations.remove(event.favouriteStation);
-      yield _createFavStations();
+      // yield _createFavStations();
       yield _createLoadedState();
       print('кейс фолс, станция ${event.favouriteStation} удалена из $favStations');
     }
@@ -134,7 +124,7 @@ Stream<RadioState> _playAndChange (StationSelect event) async* {
     else if(event.favouriteStation.isFavourite == true) {
       _favouriteStation = event.favouriteStation;
       favStations.add(_favouriteStation);
-      yield _createFavStations();
+      // yield _createFavStations();
       yield _createLoadedState();
       print('кейс тру, станция $_favouriteStation добавлена в список $favStations');
     }

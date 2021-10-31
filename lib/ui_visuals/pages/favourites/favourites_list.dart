@@ -23,9 +23,9 @@ class _FavouritesListState extends State<FavouritesList> with AutomaticKeepAlive
     return BlocBuilder<RadioBloc, RadioState> (
         builder: (context, state) {
 
-          print('fav state is $state');
+          var favouriteRadios = radioBloc.favStations;
 
-          if (state is WelcomeState) {
+          if (favouriteRadios.length == 0) {
             return Expanded(
               child: Center(child:
               Text('No added radios', style: RadioStation)
@@ -33,25 +33,20 @@ class _FavouritesListState extends State<FavouritesList> with AutomaticKeepAlive
             );
           }
 
-          if (state is FavouriteRadiosState) {
-            return Expanded(
-              child: ListView.builder(
-                  scrollDirection: Axis.vertical,
-                  itemCount: radioBloc.favStations.length,
-                  itemBuilder: (context, index) => Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: StationCard(station: radioBloc.favStations[index])
-                  )),
-            );
-          }
-
-
           if(state is ErrorState) {
             throw Exception('something went wrong');
           }
 
 
-          return CircularProgressIndicator();
+          return Expanded(
+            child: ListView.builder(
+                scrollDirection: Axis.vertical,
+                itemCount: radioBloc.favStations.length,
+                itemBuilder: (context, index) => Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: StationCard(station: radioBloc.favStations[index])
+                )),
+          );
 
         }
     );
