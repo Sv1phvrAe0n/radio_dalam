@@ -19,6 +19,7 @@ class SearchWidget extends StatefulWidget {
 class _SearchWidgetState extends State<SearchWidget> {
   final controller = TextEditingController();
 
+
   @override
   Widget build(BuildContext context) {
     final styleActive = TextStyle(color: Color(0xfffaa307));

@@ -7,20 +7,20 @@ import 'package:radio/services/radio_api.dart';
 
 import 'package:radio/services/radios_repository.dart';
 import 'package:radio/models/audioplayer.dart';
+import 'package:radio/ui_visuals/pages/favourites/favourite.dart';
 
 class RadioBloc extends Bloc<UserEvent, RadioState> {
   final RadioApiProvider radiosRepository;
   RadioBloc(this.radiosRepository) : super(WelcomeState());
 
-  // final RadiosRepository radiosRepository;
-  // RadioBloc(this.radiosRepository) : super(WelcomeState());
-
-
 
   final audioPlayer = AudioPlayer();
   RadioModel _selectedStation;
   RadioModel currentStation;
+  RadioModel _favouriteStation;
+
   List<RadioModel> _stations;
+  List<RadioModel> favStations = [];
 
   Future startAudio(url) async {
     await audioPlayer.play(url);
@@ -31,11 +31,13 @@ class RadioBloc extends Bloc<UserEvent, RadioState> {
   }
 
 
-
   @override
     Stream<RadioState> mapEventToState(UserEvent event) async* {
+        print('эвент типа: $event');
              if(event is AutomaticLoad) {yield* _fetchStations();}
+        else if(event is FavouritesLoad) {yield* _initFavourites(); }
         else if(event is StationSelect) {yield* _playAndChange(event); }
+        else if(event is ActionsWithFavourites) {yield* _favourites(event);}
         else yield ErrorState();
       }
 
@@ -48,8 +50,17 @@ class RadioBloc extends Bloc<UserEvent, RadioState> {
     }
   }
 
+  Stream<RadioState> _initFavourites() async* {
+    try {
+      // favStations = [];
+      yield _createFavStations();
+    } on Exception catch (e) {
+      yield ErrorState();
+    }
+  }
+
 LoadedRadiosState _createLoadedState() {
-    return LoadedRadiosState(selectedStation: _selectedStation, loadedRadios: _stations);
+    return LoadedRadiosState(selectedStation: _selectedStation, loadedRadios: _stations, favourites: favStations, favouriteStation: _favouriteStation);
 
 }
 
@@ -61,7 +72,7 @@ Stream<RadioState> _playAndChange (StationSelect event) async* {
     // _selectedStation.shouldPlay = false;
 
     stopAudio();
-    yield LoadedRadiosState(selectedStation: _selectedStation, loadedRadios: _stations);
+    yield _createLoadedState();
     print('отключилась станция: $_selectedStation');
     _selectedStation = null;
     currentStation = null;
@@ -73,7 +84,7 @@ Stream<RadioState> _playAndChange (StationSelect event) async* {
     _selectedStation = event.selectedStation;
     currentStation = _selectedStation;
     startAudio(_selectedStation.uri);
-    yield LoadedRadiosState(selectedStation: _selectedStation, loadedRadios: _stations);
+    yield _createLoadedState();
     print('впервые включилась станция: $_selectedStation');
   }
 
@@ -85,12 +96,49 @@ Stream<RadioState> _playAndChange (StationSelect event) async* {
     _selectedStation = event.selectedStation;
     currentStation = _selectedStation;
     startAudio(_selectedStation.uri);
-    yield LoadedRadiosState(selectedStation: _selectedStation, loadedRadios: _stations);
+    yield _createLoadedState();
     print('включилась станция $_selectedStation');
   }
+
+  // if(favouriteStation.isFavourite = null) {
+  //   favStations.add(event.favouriteStation);
+  //   yield _createFavStations();
+  // }
+
   // print('the _selectedStation AFTER is: $_selectedStation');
   // yield _createLoadedState();
 }
+
+  FavouriteRadiosState _createFavStations() {
+    print('stations $favStations');
+    return FavouriteRadiosState(selectedStation: _selectedStation, loadedRadios: _stations, favourites: favStations, favouriteStation: _favouriteStation);
+  }
+
+  Stream<RadioState> _favourites (ActionsWithFavourites event) async* {
+
+    if(_favouriteStation == null) {
+      _favouriteStation = event.favouriteStation;
+      favStations.add(_favouriteStation);
+      yield _createFavStations();
+      yield _createLoadedState();
+      print('кейс нулл, станция $_favouriteStation добавлена в список $favStations');
+    }
+
+    else if(event.favouriteStation.isFavourite == false) {
+      favStations.remove(event.favouriteStation);
+      yield _createFavStations();
+      yield _createLoadedState();
+      print('кейс фолс, станция ${event.favouriteStation} удалена из $favStations');
+    }
+
+    else if(event.favouriteStation.isFavourite == true) {
+      _favouriteStation = event.favouriteStation;
+      favStations.add(_favouriteStation);
+      yield _createFavStations();
+      yield _createLoadedState();
+      print('кейс тру, станция $_favouriteStation добавлена в список $favStations');
+    }
+  }
 
 }
 

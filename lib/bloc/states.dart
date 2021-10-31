@@ -13,8 +13,18 @@ class LoadingDataState extends RadioState{
 class LoadedRadiosState extends RadioState{
   final List<dynamic> loadedRadios;
   final RadioModel selectedStation;
-  const LoadedRadiosState({@required this.loadedRadios, this.selectedStation});
+  final List<dynamic> favourites;
+  final RadioModel favouriteStation;
+  const LoadedRadiosState({@required this.loadedRadios, this.selectedStation, this.favourites, this.favouriteStation});
 
+}
+
+class FavouriteRadiosState extends RadioState {
+  final List<dynamic> loadedRadios;
+  final RadioModel selectedStation;
+  final List<dynamic> favourites;
+  final RadioModel favouriteStation;
+  const FavouriteRadiosState({@required this.loadedRadios, this.selectedStation, this.favourites, this.favouriteStation});
 }
 
 // class PlayingRadioState extends RadioState {

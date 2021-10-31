@@ -5,18 +5,27 @@ abstract class UserEvent {
 
   class AutomaticLoad extends UserEvent{}
 
-  class StationSelect extends UserEvent{
+  class FavouritesLoad extends UserEvent{}
+
+
+class StationSelect extends UserEvent{
   final RadioModel selectedStation;
   const StationSelect(this.selectedStation);
   }
 
-  class StationChange extends UserEvent{
-    final RadioModel selectedStation;
-    const StationChange(this.selectedStation);
+  // class StationChange extends UserEvent{
+  //   final RadioModel selectedStation;
+  //   const StationChange(this.selectedStation);
+  // }
+
+  class ActionsWithFavourites extends UserEvent {
+  final RadioModel favouriteStation;
+  const ActionsWithFavourites(this.favouriteStation);
   }
 
-  class AddedToFavourites extends UserEvent {}
-
-  class RemovedFromFavourites extends UserEvent {}
+  // class RemovedFromFavourites extends UserEvent {
+  // final RadioModel removedStation;
+  // const RemovedFromFavourites(this.removedStation);
+  // }
 
   class Error extends UserEvent{}

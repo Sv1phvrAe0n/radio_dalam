@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
-import 'pages/homepage.dart';
+import 'pages/homepage/homepage.dart';
 import 'pages/now_playing.dart';
-import 'pages/favourite.dart';
+import 'pages/favourites/favourite.dart';
 
 class TabBars extends StatefulWidget {
 

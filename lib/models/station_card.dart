@@ -70,9 +70,19 @@ class _StationCardState extends State<StationCard> {
                   alignment: Alignment.center,
                   iconSize: 35,
                   color: Color(0xfffaa307),
-                  icon: Icon(Icons.favorite_border),
+                  icon: (widget.station.isFavourite == null || widget.station.isFavourite == false) ?
+                  Icon(Icons.favorite_border) : Icon(Icons.favorite),
                   onPressed: () {
-                    print('pressed heart');
+                    radioBloc.add(ActionsWithFavourites(widget.station));
+                    setState(() {
+                      if(widget.station.isFavourite == null || widget.station.isFavourite == false) {
+                        widget.station.isFavourite = true;
+                        // radioBloc.favStations.add(widget.station);
+                        print('${widget.station} added to ${radioBloc.favStations}');
+                      } else {widget.station.isFavourite = false;
+                      // radioBloc.favStations.remove(widget.station);
+                      }
+                    });
                   },
                 ),
               ],
@@ -114,9 +124,19 @@ class _StationCardState extends State<StationCard> {
                   alignment: Alignment.center,
                   iconSize: 35,
                   color: Color(0xfffaa307),
-                  icon: Icon(Icons.favorite_border),
+                  icon: (widget.station.isFavourite == null || widget.station.isFavourite == false) ?
+                  Icon(Icons.favorite_border) : Icon(Icons.favorite),
                   onPressed: () {
-                    print('pressed heart');
+                    radioBloc.add(ActionsWithFavourites(widget.station));
+                    setState(() {
+                      if(widget.station.isFavourite == null || widget.station.isFavourite == false) {
+                        widget.station.isFavourite = true;
+                        // radioBloc.favStations.add(widget.station);
+                        print('${widget.station} added to ${radioBloc.favStations}');
+                      } else {widget.station.isFavourite = false;
+                      // radioBloc.favStations.remove(widget.station);
+                      }
+                    });
                   },
                 ),
               ],
