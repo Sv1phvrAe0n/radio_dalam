@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:radio/services/radio_api.dart';
 import 'package:radio/ui_visuals/tab_bars.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'bloc/radio_bloc.dart';
 import 'bloc/user_event.dart';
 
 
-void main() {
+void main() async {
   runApp(MyApp());
 }
 
@@ -26,4 +25,3 @@ class MyApp extends StatelessWidget {
      );
   }
 }
-

@@ -1,27 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:radio/models/radio_model.dart';
 
-List allRadios() {
-  return
-      [
-        RadioModel(name: 'Hard Rock FM', genre: 'Rock', imageUrl: 'http://ru0-cdn.onlineradiobox.com/img/l/0/18880.v11.png', uri: 'https://n13.radiojar.com/7csmg90fuqruv?rj-ttl=5&rj-tok=AAABfH48b3QA6JpPQEjUUtOOew'),
-        RadioModel(name: 'Prambors FM', genre: 'Rock, Pop, Hits', imageUrl: 'https://mypromotions.sfo2.cdn.digitaloceanspaces.com/radios/1965.jpg', uri: 'https://22253.live.streamtheworld.com/PRAMBORS_FM.mp3?dist=onlineradiobox'),
-        RadioModel(name: 'iRadio Jakarta 89.6', genre: 'Pop Music', imageUrl: 'https://ru0-cdn.onlineradiobox.com/img/l/9/18959.v6.png', uri: 'https://n0c.radiojar.com/4ywdgup3bnzuv?rj-ttl=5&rj-tok=AAABfH46L-sAZ9d5QZYIszaD9A'),
-        RadioModel(name: 'Trax FM', genre: 'Pop, Hits', imageUrl: 'https://ru0-cdn.onlineradiobox.com/img/l/6/18806.v9.png', uri: 'https://n0c.radiojar.com/rrqf78p3bnzuv.mp3?1603859899=&rj-tok=AAABfH8XuNEAvqj8pDSU_sxOKw&rj-ttl=5'),
-        RadioModel(name: 'Dengerin Musik', genre: 'Hits, Rock, Dance', imageUrl: 'https://ru0-cdn.onlineradiobox.com/img/l/8/18908.v10.png', uri: 'http://stream.denger.in:8888/dmi'),
-        RadioModel(name: 'Bahana FM', genre: 'Pop', imageUrl: 'https://mypromotions.sfo2.cdn.digitaloceanspaces.com/radios/310.jpg', uri: 'http://stream.bahanafm.co.id:8100/;'),
-        RadioModel(name: 'Indika FM', genre: 'Pop, RnB, Hits', imageUrl: 'https://ru0-cdn.onlineradiobox.com/img/l/7/18887.v6.png', uri: 'https://s2.radio.co/sf58a82d7d/listen'),
-        RadioModel(name: 'NAGASWARA Pop', genre: 'Pop', imageUrl: 'https://ru0-cdn.onlineradiobox.com/img/l/9/75889.v5.png', uri: 'https://live.nagaswarafm.com:9100/stream'), //https://mypromotions.sfo2.cdn.digitaloceanspaces.com/radios/186.jpg
-        RadioModel(name: 'ARDAN Radio', genre: 'Pop, Hits', imageUrl: 'https://ru0-cdn.onlineradiobox.com/img/l/7/18827.v7.png', uri: 'http://onlineradiobox.com/id/ardan/player/?cs=id.ardan&played=1'),
-        RadioModel(name: 'Delta FM', genre: 'Pop, Talk', imageUrl: 'https://ru0-cdn.onlineradiobox.com/img/l/8/58058.v12.png', uri: 'http://onlineradiobox.com/id/deltafm/player/?cs=id.deltafm&played=1'),
-        // RadioModel(name: '', genre: '', imageUrl: '', uri: ''),
-        // RadioModel(name: '', genre: '', imageUrl: '', uri: ''),
-        // RadioModel(name: '', genre: '', imageUrl: '', uri: ''),
-        // RadioModel(name: '', genre: '', imageUrl: '', uri: ''),
-        // RadioModel(name: '', genre: '', imageUrl: '', uri: ''),
-        // RadioModel(name: '', genre: '', imageUrl: '', uri: ''),
-      ];
-}
+// List allRadios() {
+//   return
+//       [
+//         RadioModel(name: 'Metalomanie', genre: 'Rock, Heavy Metal', imageUrl: 'http://ru0-cdn.onlineradiobox.com/img/l/0/46780.v6.png', uri: 'https://ice.abradio.cz/metalomanie128.mp3'),
+//         RadioModel(name: 'Prambors FM', genre: 'Rock, Pop, Hits', imageUrl: 'https://mypromotions.sfo2.cdn.digitaloceanspaces.com/radios/1965.jpg', uri: 'https://22253.live.streamtheworld.com/PRAMBORS_FM.mp3?dist=onlineradiobox'),
+//         RadioModel(name: 'iRadio Jakarta 89.6', genre: 'Pop Music', imageUrl: 'https://ru0-cdn.onlineradiobox.com/img/l/9/18959.v6.png', uri: 'https://n0c.radiojar.com/4ywdgup3bnzuv?rj-ttl=5&rj-tok=AAABfH46L-sAZ9d5QZYIszaD9A'),
+//         RadioModel(name: 'Trax FM', genre: 'Pop, Hits', imageUrl: 'https://ru0-cdn.onlineradiobox.com/img/l/6/18806.v9.png', uri: 'https://n0c.radiojar.com/rrqf78p3bnzuv.mp3?1603859899=&rj-tok=AAABfH8XuNEAvqj8pDSU_sxOKw&rj-ttl=5'),
+//         RadioModel(name: 'Dengerin Musik', genre: 'Hits, Rock, Dance', imageUrl: 'https://ru0-cdn.onlineradiobox.com/img/l/8/18908.v10.png', uri: 'http://stream.denger.in:8888/dmi'),
+//         RadioModel(name: 'Bahana FM', genre: 'Pop', imageUrl: 'https://mypromotions.sfo2.cdn.digitaloceanspaces.com/radios/310.jpg', uri: 'http://stream.bahanafm.co.id:8100/;'),
+//         RadioModel(name: 'Indika FM', genre: 'Pop, RnB, Hits', imageUrl: 'https://ru0-cdn.onlineradiobox.com/img/l/7/18887.v6.png', uri: 'https://s2.radio.co/sf58a82d7d/listen'),
+//         RadioModel(name: 'NAGASWARA Pop', genre: 'Pop', imageUrl: 'https://ru0-cdn.onlineradiobox.com/img/l/9/75889.v5.png', uri: 'https://live.nagaswarafm.com:9100/stream'), //https://mypromotions.sfo2.cdn.digitaloceanspaces.com/radios/186.jpg
+//         RadioModel(name: 'ARDAN Radio', genre: 'Pop, Hits', imageUrl: 'https://ru0-cdn.onlineradiobox.com/img/l/7/18827.v7.png', uri: 'http://onlineradiobox.com/id/ardan/player/?cs=id.ardan&played=1'),
+//         RadioModel(name: 'Delta FM', genre: 'Pop, Talk', imageUrl: 'https://ru0-cdn.onlineradiobox.com/img/l/8/58058.v12.png', uri: 'http://onlineradiobox.com/id/deltafm/player/?cs=id.deltafm&played=1'),
+//         // RadioModel(name: '', genre: '', imageUrl: '', uri: ''),
+//         // RadioModel(name: '', genre: '', imageUrl: '', uri: ''),
+//         // RadioModel(name: '', genre: '', imageUrl: '', uri: ''),
+//         // RadioModel(name: '', genre: '', imageUrl: '', uri: ''),
+//         // RadioModel(name: '', genre: '', imageUrl: '', uri: ''),
+//         // RadioModel(name: '', genre: '', imageUrl: '', uri: ''),
+//       ];
+// }
 
 
 

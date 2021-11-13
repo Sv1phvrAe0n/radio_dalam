@@ -7,13 +7,13 @@ import 'favourites_list.dart';
 
 
 class Favourite extends StatelessWidget {
-  final radiosRepository = RadioApiProvider();
+  // final radiosRepository = RadioApiProvider();
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-            backgroundColor: Color(0xff1D071B),
+            backgroundColor: Color(0xff080D18),
             body: Column(
               children: [
                 FavouritesList(),

@@ -3,10 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:radio/bloc/radio_bloc.dart';
 import 'package:radio/bloc/states.dart';
-import 'package:radio/bloc/user_event.dart';
-
 import 'package:radio/models/station_card.dart';
 import 'package:radio/ui_visuals/text_styles.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 class FavouritesList extends StatefulWidget  {
@@ -15,17 +14,34 @@ class FavouritesList extends StatefulWidget  {
   _FavouritesListState createState() => _FavouritesListState();
 }
 
-class _FavouritesListState extends State<FavouritesList> with AutomaticKeepAliveClientMixin{
+class _FavouritesListState extends State<FavouritesList> with AutomaticKeepAliveClientMixin {
+
+
   @override
   Widget build(BuildContext context) {
     final RadioBloc radioBloc = BlocProvider.of<RadioBloc>(context);
 
-    return BlocBuilder<RadioBloc, RadioState> (
+    return BlocBuilder<RadioBloc, RadioState>(
         builder: (context, state) {
 
-          var favouriteRadios = radioBloc.favStations;
+          print('favstations are: ${radioBloc.favStations}');
+          // radioBloc.eraseData('erased at FavPage'); //Ни на что не повлияло
+          // radioBloc.saveData('saved at FavPAge');
 
-          if (favouriteRadios.length == 0) {
+          if (radioBloc.favStations!.length > 0) {
+            return Expanded(
+              child: ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  itemCount: radioBloc.favStations!.length,
+                  itemBuilder: (context, index) =>
+                      Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: StationCard(station: radioBloc.favStations![index])
+                      )),
+            );
+          }
+
+          else {
             return Expanded(
               child: Center(child:
               Text('No added radios', style: RadioStation)
@@ -33,33 +49,21 @@ class _FavouritesListState extends State<FavouritesList> with AutomaticKeepAlive
             );
           }
 
-          if(state is ErrorState) {
-            throw Exception('something went wrong');
-          }
-
-
-          return Expanded(
-            child: ListView.builder(
-                scrollDirection: Axis.vertical,
-                itemCount: radioBloc.favStations.length,
-                itemBuilder: (context, index) => Padding(
-                    padding: const EdgeInsets.all(5.0),
-                    child: StationCard(station: radioBloc.favStations[index])
-                )),
-          );
-
         }
     );
+
   }
 
   @override
   bool get wantKeepAlive => true;
+
 }
+
 
 class Standby extends StatelessWidget {
 
   final spinkit = SpinKitFoldingCube(
-      color: Color(0xfffaa307),
+      color: Color(0xffADADAD),
       size: 35
   );
   @override

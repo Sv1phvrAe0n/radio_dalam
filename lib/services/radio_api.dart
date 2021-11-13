@@ -30,79 +30,90 @@ class RadioApiProvider {
     // }
 
     return [
-      RadioModel(
-          name: 'Hard Rock FM',
-          genre: 'Rock',
-          imageUrl: 'http://ru0-cdn.onlineradiobox.com/img/l/0/18880.v11.png',
-          uri: 'https://n13.radiojar.com/7csmg90fuqruv?rj-ttl=5&rj-tok=AAABfH48b3QA6JpPQEjUUtOOew'), // works https://stream.radiojar.com/7csmg90fuqruv.mp3?1587779552
-      RadioModel(
-          name: 'Prambors FM',
-          genre: 'Rock, Pop, Hits',
-          imageUrl: 'https://mypromotions.sfo2.cdn.digitaloceanspaces.com/radios/1965.jpg',
-          uri: 'https://22253.live.streamtheworld.com/PRAMBORS_FM.mp3?dist=onlineradiobox'),
-      RadioModel(
-          name: 'iRadio Jakarta 89.6',
-          genre: 'Pop Music',
-          imageUrl: 'https://ru0-cdn.onlineradiobox.com/img/l/9/18959.v6.png',
-          uri: 'https://stream.radiojar.com/4ywdgup3bnzuv'),
-      RadioModel(
-          name: 'Trax FM',
-          genre: 'Pop, Hits',
-          imageUrl: 'https://ru0-cdn.onlineradiobox.com/img/l/6/18806.v9.png',
-          uri: 'https://n0c.radiojar.com/rrqf78p3bnzuv.mp3?1603859899=&rj-tok=AAABfH8XuNEAvqj8pDSU_sxOKw&rj-ttl=5'),
-      RadioModel(
-          name: 'Dengerin Musik',
-          genre: 'Hits, Rock, Dance',
-          imageUrl: 'https://ru0-cdn.onlineradiobox.com/img/l/8/18908.v10.png',
-          uri: 'http://stream.denger.in:8888/dmi'),
-      RadioModel(
-          name: 'Bahana FM',
-          genre: 'Pop',
-          imageUrl: 'https://mypromotions.sfo2.cdn.digitaloceanspaces.com/radios/310.jpg',
-          uri: 'http://stream.bahanafm.co.id:8100/;'),
-      RadioModel(
-          name: 'Indika FM',
-          genre: 'Pop, RnB, Hits',
-          imageUrl: 'https://ru0-cdn.onlineradiobox.com/img/l/7/18887.v6.png',
-          uri: 'https://s2.radio.co/sf58a82d7d/listen'),
-      RadioModel(
-          name: 'NAGASWARA Pop',
-          genre: 'Pop',
-          imageUrl: 'https://ru0-cdn.onlineradiobox.com/img/l/9/75889.v5.png',
-          uri: 'https://live.nagaswarafm.com:9100/stream'),
-      //https://mypromotions.sfo2.cdn.digitaloceanspaces.com/radios/186.jpg
-      RadioModel(
-          name: 'ARDAN Radio',
-          genre: 'Pop, Hits',
-          imageUrl: 'https://ru0-cdn.onlineradiobox.com/img/l/7/18827.v7.png',
-          uri: 'http://listento.ardanradio.com:1059/;'),
-      RadioModel(
-          name: 'Maestro Bandung',
-          genre: 'Jazz, Christian',
-          imageUrl: 'https://mytuner.global.ssl.fastly.net/media/tvos_radios/Nkq7gFmMGF.png',
-          uri: 'http://maestro.skyline.net.id:10925/radio.maestro'), // works
-      RadioModel(
-          name: 'SKAI Radio',
-          genre: 'Islam',
-          imageUrl: 'https://mypromotions.sfo2.cdn.digitaloceanspaces.com/radios/253.jpg',
-          uri: 'http://node-20.zeno.fm/k2nkm81yty8uv?rj-ttl=5&rj-tok=AAABfH4uSQwANEQGIB9Xxg8Qtw'), // works
-      RadioModel(
-          name: 'Silaturahim',
-          genre: 'Islam',
-          imageUrl: 'https://mytuner.global.ssl.fastly.net/media/tvos_radios/y5CyA6VbfB.jpeg',
-          uri: 'http://ch1.radiosilaturahim.com:8000/stream'), //works
-      RadioModel(
-          name: 'Sonora Jakarta',
-          genre: 'News, Music',
-          imageUrl: 'https://pbs.twimg.com/profile_images/1410493292035252229/WJtGTERO_400x400.jpg',
-          uri: 'http://103.226.246.245/kompas-sonorajakarta'), // NOPE
       // RadioModel(
       //     name: '',
       //     genre: '',
+      //     country: '',
       //     imageUrl: '',
       //     uri: ''),
-      // RadioModel(name: '', genre: '', imageUrl: '', uri: ''),
-      // RadioModel(name: '', genre: '', imageUrl: '', uri: ''),
+      RadioModel(
+          name: 'Metal On: The Brutal',
+          genre: 'Black, Death',
+          country: 'Portugal',
+          imageUrl: 'http://ru0-cdn.onlineradiobox.com/img/l/3/19793.v6.png',
+          uri: 'https://radiometalon.com/radio/8010/radio.mp3'),
+      RadioModel(
+          name: 'Metal On: The Thrasher',
+          genre: 'Thrash',
+          country: 'Portugal',
+          imageUrl: 'http://ru0-cdn.onlineradiobox.com/img/l/3/19793.v6.png',
+          uri: 'https://radiometalon.com/radio/8020/radio.mp3'),
+      RadioModel(
+          name: 'Moshhead Black Metal',
+          genre: 'Black',
+          country: 'Germany',
+          imageUrl: 'http://ru0-cdn.onlineradiobox.com/img/l/2/54692.v3.png',
+          uri: 'https://moshhead-blackmetal.stream.laut.fm/moshhead-blackmetal'),
+      RadioModel(
+          name: 'Metal Tavern',
+          genre: 'Black, Death, Prog',
+          country: 'USA',
+          imageUrl: 'http://ru0-cdn.onlineradiobox.com/img/l/5/74685.v8.png',
+          uri: 'http://192.99.14.191:8051/stream'),
+      RadioModel(
+          name: 'Northern Metal Extreme',
+          genre: 'Black, Death, Norse',
+          country: 'Sweden',
+          imageUrl: 'http://ru0-cdn.onlineradiobox.com/img/l/8/106698.v3.png',
+          uri: 'https://s2.free-shoutcast.com/stream/18092'),
+      RadioModel(
+          name: 'Northern Metal',
+          genre: 'Heavy, Power',
+          country: 'Sweden',
+          imageUrl: 'http://ru0-cdn.onlineradiobox.com/img/l/8/106698.v3.png',
+          uri: 'https://s3.free-shoutcast.com/stream/18578'),
+      RadioModel(
+          name: 'Metal Warriors Peru',
+          genre: 'Black, Heavy, Power',
+          country: 'Peru',
+          imageUrl: 'http://ru0-cdn.onlineradiobox.com/img/l/4/82174.v23.png',
+          uri: 'https://www.metallerium.com:8124/stream'),
+      RadioModel(
+          name: 'GARTA',
+          genre: 'Death, Goth, Thrash',
+          country: 'Ukraine',
+          imageUrl: 'http://ru0-cdn.onlineradiobox.com/img/l/5/80865.v8.png',
+          uri: 'https://rockradioua.online:8447/kuznya128'),
+      RadioModel(
+          name: 'Metal Knight',
+          genre: 'Heavy, Gothic, Rock',
+          country: 'Spain',
+          imageUrl: 'http://ru0-cdn.onlineradiobox.com/img/l/1/63241.v4.png',
+          uri: 'https://streamingv2.shoutcast.com/-Metalknightradio-'),
+      RadioModel(
+          name: 'Schwarzeseele',
+          genre: 'Death, Gothic, Power',
+          country: 'Germany',
+          imageUrl: 'http://ru0-cdn.onlineradiobox.com/img/l/8/79148.v3.png',
+          uri: 'https://stream.laut.fm/radio-schwarzeseele'),
+      RadioModel(
+          name: 'Motorbreath',
+          genre: 'Black, Core, Thrash',
+          country: 'Germany',
+          imageUrl: 'http://ru0-cdn.onlineradiobox.com/img/l/3/44983.v2.png',
+          uri: 'https://motorbreath.stream.laut.fm/motorbreath'),
+      RadioModel(
+          name: 'Grindoteka',
+          genre: 'Black, Death, Doom',
+          country: 'Russia',
+          imageUrl: 'http://ru0-cdn.onlineradiobox.com/img/l/3/70053.v13.png',
+          uri: 'http://194.67.200.84:8000/grindoteka.mp3'),
+      RadioModel(
+          name: 'Extasy',
+          genre: 'Death, Power, Symphonic',
+          country: 'Russia',
+          imageUrl: 'http://ru0-cdn.onlineradiobox.com/img/l/9/94989.v6.png',
+          uri: 'https://onrb.play.extasy.es/'),
     ];
   }
 }
