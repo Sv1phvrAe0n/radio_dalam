@@ -24,19 +24,19 @@ class _FavouritesListState extends State<FavouritesList> with AutomaticKeepAlive
     return BlocBuilder<RadioBloc, RadioState>(
         builder: (context, state) {
 
-          print('favstations are: ${radioBloc.favStations}');
+          var favStations = radioBloc.stations.where((el) => el.isFavourite == true).toList();
           // radioBloc.eraseData('erased at FavPage'); //Ни на что не повлияло
           // radioBloc.saveData('saved at FavPAge');
 
-          if (radioBloc.favStations!.length > 0) {
+          if (favStations.length > 0) {
             return Expanded(
               child: ListView.builder(
                   scrollDirection: Axis.vertical,
-                  itemCount: radioBloc.favStations!.length,
+                  itemCount: favStations.length,
                   itemBuilder: (context, index) =>
                       Padding(
                           padding: const EdgeInsets.all(5.0),
-                          child: StationCard(station: radioBloc.favStations![index])
+                          child: StationCard(station: favStations[index])
                       )),
             );
           }

@@ -19,8 +19,8 @@ class StationSelect extends UserEvent{
   // }
 
   class ActionsWithFavourites extends UserEvent {
-  final RadioModel favouriteStation;
-  const ActionsWithFavourites(this.favouriteStation);
+  final RadioModel station;
+  const ActionsWithFavourites(this.station);
   }
 
   // class RemovedFromFavourites extends UserEvent {

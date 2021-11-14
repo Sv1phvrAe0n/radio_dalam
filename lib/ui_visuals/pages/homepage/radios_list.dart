@@ -19,7 +19,7 @@ class RadiosList extends StatefulWidget  {
 class _RadiosListState extends State<RadiosList> with AutomaticKeepAliveClientMixin{
   @override
   Widget build(BuildContext context) {
-    final RadioBloc radioBloc = BlocProvider.of<RadioBloc>(context);
+    // final RadioBloc radioBloc = BlocProvider.of<RadioBloc>(context);
 
     return BlocBuilder<RadioBloc, RadioState> (
       builder: (context, state) {
@@ -34,7 +34,7 @@ class _RadiosListState extends State<RadiosList> with AutomaticKeepAliveClientMi
           return Expanded(
             child: Column(
               children: [
-                SearchWidget(text: 'text', hintText: 'Search radio, genre or country'),
+                // SearchWidget(text: 'text', hintText: 'Search radio, genre or country'),
                 Expanded(
                   child: ListView.builder(
                       scrollDirection: Axis.vertical,

@@ -20,7 +20,7 @@ class RadioBloc extends Bloc<UserEvent, RadioState> {
   RadioModel? _selectedStation;
   RadioModel? currentStation;
   RadioModel? favouriteStation;
-  List<RadioModel> _stations = [];
+  List<RadioModel> stations = [];
   List<RadioModel>? favStations;
   List<RadioModel>? restoredStations;
   String? savedJsonString;
@@ -29,12 +29,9 @@ class RadioBloc extends Bloc<UserEvent, RadioState> {
 
   saveData(String str) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-      if(favStations != null ) {
-        savedListToString = jsonEncode(favStations);
-        prefs.setString('key', savedListToString!);
-      } else {
-        print('no favourite stations to save');
-      }
+    savedListToString = jsonEncode(stations);
+    prefs.setString('key', savedListToString!);
+    print('IN SAVE DATA $stations');
     print(str);
   }
 
@@ -44,8 +41,8 @@ class RadioBloc extends Bloc<UserEvent, RadioState> {
       savedJsonString = prefs.getString('key');
       List<RadioModel> responseFromJson(String str) => Set<RadioModel>.from(json.decode(str).map((x) => RadioModel.fromJson(x))).toList();
       restoredStations = responseFromJson(savedJsonString!);
-    favStations = restoredStations;
-      print('List favStations at readData: $favStations');
+      stations = restoredStations!;
+       print('List favStations at readData: $stations');
       print(str);
   }
 
@@ -63,6 +60,15 @@ class RadioBloc extends Bloc<UserEvent, RadioState> {
     audioPlayer.stop();
   }
 
+  RadioModel updateIsFavouriteFlag(RadioModel station, List<RadioModel> favouriteStations) {
+    var favouriteStationsUris = favouriteStations.map((fs) => fs.uri);
+    var isStationFavourite = favouriteStationsUris.contains(station.uri);
+    if (isStationFavourite) {
+      station.isFavourite = true;
+    }
+    return station;
+  }
+
 
   @override
     Stream<RadioState> mapEventToState(UserEvent event) async* {
@@ -75,10 +81,9 @@ class RadioBloc extends Bloc<UserEvent, RadioState> {
 
   Stream<RadioState> _fetchStations() async* {
     try {
-      _stations = radiosRepository.getRadio();
-      _stations.sort((a, b) => a.name.compareTo(b.name));
-      readData('from fetch');
-      if(favStations == null) {favStations = [];}
+      var _fetchedStations = radiosRepository.getRadio();
+      _fetchedStations.sort((a, b) => a.name.compareTo(b.name));
+      await readData('from fetch');
       yield _createLoadedState();
     } on Exception catch (e) {
       yield ErrorState();
@@ -87,13 +92,14 @@ class RadioBloc extends Bloc<UserEvent, RadioState> {
 
 LoadedRadiosState _createLoadedState() {
     saveData('SAVED at _createLoadedState');
-    return LoadedRadiosState(selectedStation: _selectedStation, loadedRadios: _stations, favourites: favStations, favouriteStation: favouriteStation);
+    return LoadedRadiosState(selectedStation: _selectedStation, loadedRadios: stations, favouriteStation: favouriteStation);
 }
 
 Stream<RadioState> _playAndChange (StationSelect event) async* {
 // saveData('saved at 15 40 from _playAndChange');
   if (_selectedStation == event.selectedStation) {
     stopAudio();
+    yield _createLoadedState();
     yield _createLoadedState();
     _selectedStation = null;
     currentStation = null;
@@ -120,30 +126,18 @@ Stream<RadioState> _playAndChange (StationSelect event) async* {
 
   Stream<RadioState> _favourites (ActionsWithFavourites event) async* {
     // saveData('saved at 15 40 from _favourites');
-    if(favStations!.contains(event.favouriteStation)) {
-      favStations!.remove(event.favouriteStation);
-      yield _createLoadedState();
+    var currentStationIndex = stations.indexWhere((station) => station.uri == event.station.uri);
+    var isCurrentStationFavourite = stations[currentStationIndex].isFavourite;
 
-    } else  {
-      // if (favStations == null || favStations!.length > 0)
-
-      if(favouriteStation == null) {
-        favouriteStation = event.favouriteStation;
-        favStations!.add(favouriteStation!);
-        yield _createLoadedState();
-      }
-
-      else if(event.favouriteStation.isFavourite == false) {
-        favStations!.remove(event.favouriteStation);
-        yield _createLoadedState();
-      }
-
-      else if(event.favouriteStation.isFavourite == true) {
-        favouriteStation = event.favouriteStation;
-        favStations!.add(favouriteStation!);
-        yield _createLoadedState();
-      }
+    if (isCurrentStationFavourite == null) {
+      stations[currentStationIndex].isFavourite = true;
+    } else if (isCurrentStationFavourite == true) {
+      stations[currentStationIndex].isFavourite = false;
+    } else if (isCurrentStationFavourite == false) {
+      stations[currentStationIndex].isFavourite = true;
     }
+
+    yield _createLoadedState();
     // saveData('saved at 15 40 from _favourites');
     // saveData('saved'); 1540
   }

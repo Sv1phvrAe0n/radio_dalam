@@ -6,7 +6,6 @@ import 'package:radio/models/radio_model.dart';
 import 'package:radio/ui_visuals/text_styles.dart';
 
 
-
 class StationCard extends StatefulWidget {
   final RadioModel station;
 
@@ -71,15 +70,6 @@ class _StationCardState extends State<StationCard> {
                   Image.asset('lib/assets/images/heart_grey.png'): Image.asset('lib/assets/images/heart_white.png'),
                   onPressed: () {
                     radioBloc.add(ActionsWithFavourites(widget.station));
-                    setState(() {
-                      if(widget.station.isFavourite == null || widget.station.isFavourite == false) {
-                        widget.station.isFavourite = true;
-                        // radioBloc.favStations.add(widget.station);
-                        // print('${widget.station} added to ${radioBloc.favStations}');
-                      } else {widget.station.isFavourite = false;
-                      // radioBloc.favStations.remove(widget.station);
-                      }
-                    });
                   },
                 ),
               ],
@@ -133,16 +123,6 @@ class _StationCardState extends State<StationCard> {
                   Image.asset('lib/assets/images/heart_grey.png'): Image.asset('lib/assets/images/heart_white.png'),
                   onPressed: () {
                     radioBloc.add(ActionsWithFavourites(widget.station));
-                    setState(() {
-                      if(widget.station.isFavourite == null || widget.station.isFavourite == false) {
-                        widget.station.isFavourite = true;
-                        // radioBloc.favStations.add(widget.station);
-                        // print('${widget.station} added to ${radioBloc.favStations}');
-                      } else {widget.station.isFavourite = false;
-                      // radioBloc.favStations.remove(widget.station);
-                      }
-                    }
-                    );
                     print(widget.station.isFavourite);
                   },
                 ),
