@@ -37,12 +37,20 @@ class RadioBloc extends Bloc<UserEvent, RadioState> {
 
   readData(String str) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    // if(savedListToString != null) {
-      savedJsonString = prefs.getString('key');
-      List<RadioModel> responseFromJson(String str) => Set<RadioModel>.from(json.decode(str).map((x) => RadioModel.fromJson(x))).toList();
+    savedJsonString = prefs.getString('key');
+    if(savedJsonString != null) {
+      List<RadioModel> responseFromJson(String str) =>
+          Set<RadioModel>.from(
+              json.decode(str).map((x) => RadioModel.fromJson(x))).toList();
       restoredStations = responseFromJson(savedJsonString!);
       stations = restoredStations!;
-       print('List favStations at readData: $stations');
+      stations.sort((a, b) => a.name.compareTo(b.name));
+    } else {
+      stations = radiosRepository.getRadio();
+      stations.sort((a, b) => a.name.compareTo(b.name));
+    }
+
+    print('List Stations at readData: $stations');
       print(str);
   }
 
@@ -81,9 +89,11 @@ class RadioBloc extends Bloc<UserEvent, RadioState> {
 
   Stream<RadioState> _fetchStations() async* {
     try {
+      readData('from fetch');
+
       var _fetchedStations = radiosRepository.getRadio();
       _fetchedStations.sort((a, b) => a.name.compareTo(b.name));
-      await readData('from fetch');
+
       yield _createLoadedState();
     } on Exception catch (e) {
       yield ErrorState();
@@ -120,12 +130,11 @@ Stream<RadioState> _playAndChange (StationSelect event) async* {
     startAudio(_selectedStation!.uri);
     yield _createLoadedState();
   }
-// saveData('saved at 15 40 from _playAndChange');
-   // saveData('play nad change'); 15 40
+
 }
 
   Stream<RadioState> _favourites (ActionsWithFavourites event) async* {
-    // saveData('saved at 15 40 from _favourites');
+
     var currentStationIndex = stations.indexWhere((station) => station.uri == event.station.uri);
     var isCurrentStationFavourite = stations[currentStationIndex].isFavourite;
 
@@ -138,43 +147,6 @@ Stream<RadioState> _playAndChange (StationSelect event) async* {
     }
 
     yield _createLoadedState();
-    // saveData('saved at 15 40 from _favourites');
-    // saveData('saved'); 1540
   }
 }
 
-// decode() {
-//   fromJsonFavStations = jsonDecode(jsonFavStations);
-//   print('here 2');
-//
-//   storedFavourites = fromJsonFavStations.map((item) => RadioModel.fromJson(item)).toList();
-//   print('here 3');
-//
-//   return storedFavourites;
-// }
-
-// Map<String, dynamic> cacheMap = {};
-// List storedFavourites = [];
-// String jsonFavStations = '';
-// var fromJsonFavStations;
-
-// @override
-// RadioState? fromJson(Map<String, dynamic>json) {
-//   try {
-//     storedFavourites = cacheMap.values.toList();
-//     return FavouriteRadiosState(loadedRadios: _stations, selectedStation: _selectedStation, favourites: storedFavourites, favouriteStation: favouriteStation);
-//   } catch (_) {
-//     return null;
-//   }
-// }
-//
-//
-// @override
-// Map<String, dynamic>? toJson(RadioState state) {
-//   if (state is FavouriteRadiosState) {
-//     cacheMap = {'radiostations' : state.favourites};
-//     return cacheMap;
-//   } else {
-//     return null;
-//   }
-// }

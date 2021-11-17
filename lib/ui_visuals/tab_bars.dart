@@ -24,8 +24,8 @@ class _TabBarsState extends State<TabBars> {
                       TabBar(
                         indicatorColor: Color(0xffE0E0E0),
                         tabs: [
-                          Tab(icon: Icon(Icons.home_filled, color: Color(0xffE0E0E0))),
-                          Tab(icon: Image.asset('lib/assets/images/heart_white.png', height: 23)),
+                          Tab(icon: Icon(Icons.queue_music_sharp, color: Color(0xffE0E0E0))),
+                          Tab(icon: Icon(Icons.star, color: Color(0xffE0E0E0))),
                         ],
                       )
                     ],

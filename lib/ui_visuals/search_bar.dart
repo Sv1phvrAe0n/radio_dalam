@@ -3,12 +3,12 @@ import 'package:radio/ui_visuals/text_styles.dart';
 
 class SearchWidget extends StatefulWidget {
   final String text;
-  // final ValueChanged<String> onChanged;
+  final ValueChanged<String> onChanged;
   final String hintText;
 
   const SearchWidget({
     required this.text,
-    // required this.onChanged,
+    required this.onChanged,
     required this.hintText,
   });
 
@@ -29,33 +29,34 @@ class _SearchWidgetState extends State<SearchWidget> {
     return Container(
       height: 35,
       margin: const EdgeInsets.fromLTRB(5, 10, 5, 5),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: Color(0xff151B29),
-      ),
-      padding: const EdgeInsets.symmetric(horizontal: 5),
       child: TextField(
+        cursorColor: Color(0xff9CA1AB),
+        textAlignVertical: TextAlignVertical.center,
         textAlign: TextAlign.left,
-        // maxLength: 40,
         controller: controller,
         decoration: InputDecoration(
-          icon: Icon(Icons.search, color: style.color),
-          suffixIcon: widget.text.isNotEmpty
-              ? GestureDetector(
-            child: Icon(Icons.close, color: style.color),
-            onTap: () {
-              controller.clear();
-              // widget.onChanged('');
-              FocusScope.of(context).requestFocus(FocusNode());
-            },
-          )
-              : null,
-          hintText: widget.hintText,
-          hintStyle: style,
-          border: InputBorder.none,
+            prefixIcon: Icon(Icons.search, color: style.color),
+            suffixIcon: widget.text.isNotEmpty
+                ? GestureDetector(
+                  child: Icon(Icons.close, color: style.color),
+                  onTap: () {
+                    controller.clear();
+                    widget.onChanged('');
+                    FocusScope.of(context).requestFocus(FocusNode());
+                  },
+                  ) : null,
+            hintText: widget.hintText,
+            hintStyle: style,
+            filled: true,
+            fillColor: Color(0xff1E2431),
+          contentPadding: EdgeInsets.symmetric(horizontal: 5),
+          border: OutlineInputBorder(
+            borderSide: BorderSide.none,
+            borderRadius: BorderRadius.circular(10)
+          ),
         ),
         style: style,
-        // onChanged: widget.onChanged,
+        onChanged: widget.onChanged,
       ),
     );
   }

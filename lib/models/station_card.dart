@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:radio/bloc/radio_bloc.dart';
@@ -35,43 +36,54 @@ class _StationCardState extends State<StationCard> {
               padding: MaterialStateProperty.all(EdgeInsets.all(5)),
             ),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(1, 1, 10, 1),
-                  child: CircleAvatar(
-                      radius: 25,
-                      backgroundColor: Color(0xff080D18),
-                      backgroundImage: NetworkImage(widget.station.imageUrl)),
+                Flexible(
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(1, 1, 10, 1),
+                        child: CircleAvatar(
+                            radius: 25,
+                            backgroundColor: Color(0xff080D18),
+                            backgroundImage: NetworkImage(widget.station.imageUrl)),
+                      ),
+                      Flexible(
+                        fit: FlexFit.loose,
+                        child: Container(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(widget.station.name, overflow: TextOverflow.ellipsis, style: RadioStation),
+                              Text('${widget.station.genre} | ${widget.station.country}', overflow: TextOverflow.ellipsis,
+                                  style: Genre_country)
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisSize: MainAxisSize.max,
                   children: [
-                    Text(widget.station.name, overflow: TextOverflow.ellipsis, style: RadioStation),
-                    Row(
-                      children: [
-                        Text(widget.station.genre, style: Genre_country),
-                        Text(' | ', style: Genre_country),
-                        Text(widget.station.country, overflow: TextOverflow.ellipsis, style: Genre_country),
-                      ],
-                    ),
+                    MyBlinkingButton(),
+                    IconButton(
+                      padding: EdgeInsets.all(5),
+                      alignment: Alignment.center,
+                      color: Color(0xffE0E0E0),
+                      icon: (widget.station.isFavourite == null || widget.station.isFavourite == false) ?
+                      Icon(Icons.star_border, color: Color(0xffADADAD), size: 35) : Icon(Icons.star, color: Color(0xffE0E0E0), size: 35),
+                      onPressed: () {
+                        radioBloc.add(ActionsWithFavourites(widget.station));
+                      },
+                    )
                   ],
                 ),
-                Expanded(child: Container()),
-                MyBlinkingButton(),
-                // Expanded(child: Container()),
-                IconButton(
-                  padding: EdgeInsets.all(5),
-                  alignment: Alignment.center,
-                  iconSize: 25,
-                  color: Color(0xffE0E0E0),
-                  icon: (widget.station.isFavourite == null || widget.station.isFavourite == false) ?
-                  Image.asset('lib/assets/images/heart_grey.png'): Image.asset('lib/assets/images/heart_white.png'),
-                  onPressed: () {
-                    radioBloc.add(ActionsWithFavourites(widget.station));
-                  },
-                ),
+
               ],
             ))
         :
@@ -88,39 +100,42 @@ class _StationCardState extends State<StationCard> {
               padding: MaterialStateProperty.all(EdgeInsets.all(5)),
             ),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(1, 1, 10, 1),
-                  child: CircleAvatar(
-                      radius: 25,
-                      backgroundColor: Color(0xff080D18),
-                      backgroundImage: NetworkImage(widget.station.imageUrl)),
-                ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                Row(
+                  mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text(widget.station.name,  overflow: TextOverflow.ellipsis, style: RadioStation),
-                    Row(
-                      children: [
-                        Text(widget.station.genre, style: Genre_country),
-                        Text(' | ', style: Genre_country),
-                        Text(widget.station.country, overflow: TextOverflow.ellipsis, style: Genre_country),
-                      ],
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(1, 1, 10, 1),
+                      child: CircleAvatar(
+                          radius: 25,
+                          backgroundColor: Color(0xff080D18),
+                          backgroundImage: NetworkImage(widget.station.imageUrl)),
+                    ),
+                    Flexible(
+                      fit: FlexFit.loose,
+                      child: Container(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(widget.station.name, overflow: TextOverflow.ellipsis, style: RadioStation),
+                            Text('${widget.station.genre} | ${widget.station.country}', overflow: TextOverflow.ellipsis,
+                                style: Genre_country
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
                   ],
                 ),
-                Expanded(child: Container()),
                 IconButton(
                   padding: EdgeInsets.all(5),
                   alignment: Alignment.center,
-                  iconSize: 25,
                   // color: Color(0xffE0E0E0),
                   icon:
                   (widget.station.isFavourite == null || widget.station.isFavourite == false) ?
-                  // Icon(Icons.favorite_border) : Icon(Icons.favorite),
-                  Image.asset('lib/assets/images/heart_grey.png'): Image.asset('lib/assets/images/heart_white.png'),
+                  Icon(Icons.star_border, color: Color(0xffADADAD), size: 35) : Icon(Icons.star, color: Color(0xffE0E0E0), size: 35),
                   onPressed: () {
                     radioBloc.add(ActionsWithFavourites(widget.station));
                     print(widget.station.isFavourite);

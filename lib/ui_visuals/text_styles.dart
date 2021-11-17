@@ -21,7 +21,7 @@ var search = TextStyle(
   color: Color(0xff9CA1AB).withOpacity(0.5),
   fontFamily: 'Saira',
   letterSpacing: 0.7,
-  fontSize: 15.0,
+  fontSize: 17.0,
   fontStyle: FontStyle.italic,
 );
 
