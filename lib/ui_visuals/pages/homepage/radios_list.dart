@@ -4,8 +4,10 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:radio/bloc/radio_bloc.dart';
 import 'package:radio/bloc/states.dart';
 import 'package:radio/models/radio_model.dart';
-import 'package:radio/models/station_card.dart';
-import 'package:radio/ui_visuals/search_bar.dart';
+import 'package:radio/services/audio_handler.dart';
+import 'package:radio/ui_visuals/elements/station_card.dart';
+import 'package:radio/ui_visuals/elements/request_widget.dart';
+import 'package:radio/ui_visuals/elements/search_bar.dart';
 
 class RadiosList extends StatefulWidget  {
 
@@ -23,6 +25,7 @@ class _RadiosListState extends State<RadiosList> with AutomaticKeepAliveClientMi
     super.initState();
     final RadioBloc radioBloc = BlocProvider.of<RadioBloc>(context);
     stationsSorted = radioBloc.stations;
+    // initAudioService();
   }
 
   @override
@@ -41,12 +44,13 @@ class _RadiosListState extends State<RadiosList> with AutomaticKeepAliveClientMi
             final countryLower = station.country.toLowerCase();
             final searchLower = query.toLowerCase();
 
-            return nameLower.contains(searchLower) ||
+            return
+              nameLower.contains(searchLower) ||
                 genreLower.contains(searchLower) ||
                 countryLower.contains(searchLower);
           }).toList();
 
-          setState(() {
+            setState(() {
             this.query = query;
             this.stationsSorted = stationsSorted;
           });
@@ -64,20 +68,28 @@ class _RadiosListState extends State<RadiosList> with AutomaticKeepAliveClientMi
 
         if (state is LoadedRadiosState) {
 
+          print('length: ${radioBloc.stations.length}');
+
           return Expanded(
             child: Column(
               children: [
                 buildSearch(),
                 Expanded(
-                  child: ListView.builder(
-                      scrollDirection: Axis.vertical,
-                      itemCount: query.isEmpty ? radioBloc.stations.length : stationsSorted.length,
-                      // shrinkWrap: true,
-                      itemBuilder: (context, index) => Padding(
-                        padding: const EdgeInsets.all(5.0),
-                        child: StationCard(station:
-                        query.isEmpty ? radioBloc.stations[index] : stationsSorted[index])
-                      )),
+                  child: Scrollbar(
+                    showTrackOnHover: true,
+                    thickness: 8,
+                    radius: Radius.circular(3),
+                    child: query.isNotEmpty && stationsSorted.length == 0 ?
+                        RequestStation() :
+                        ListView.builder(
+                            scrollDirection: Axis.vertical,
+                            itemCount: query.isEmpty ? radioBloc.stations.length : stationsSorted.length,
+                            itemBuilder: (context, index) => Padding(
+                              padding: const EdgeInsets.all(5.0),
+                              child: StationCard(station:
+                              query.isEmpty ? radioBloc.stations[index] : stationsSorted[index])
+                            ))
+                  ),
                 ),
               ],
             ),
@@ -93,7 +105,6 @@ class _RadiosListState extends State<RadiosList> with AutomaticKeepAliveClientMi
       }
     );
   }
-
 
   @override
   bool get wantKeepAlive => true;

@@ -6,9 +6,14 @@ import 'package:radio/services/radio_api.dart';
 import 'favourites_list.dart';
 
 
-class Favourite extends StatelessWidget {
+class Favourite extends StatefulWidget {
   // final radiosRepository = RadioApiProvider();
 
+  @override
+  State<Favourite> createState() => _FavouriteState();
+}
+
+class _FavouriteState extends State<Favourite> with AutomaticKeepAliveClientMixin{
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -22,4 +27,7 @@ class Favourite extends StatelessWidget {
         )
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

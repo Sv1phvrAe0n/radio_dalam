@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:radio/bloc/radio_bloc.dart';
 import 'package:radio/bloc/states.dart';
-import 'package:radio/models/station_card.dart';
+import 'package:radio/ui_visuals/elements/station_card.dart';
 import 'package:radio/ui_visuals/text_styles.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -25,19 +25,22 @@ class _FavouritesListState extends State<FavouritesList> with AutomaticKeepAlive
         builder: (context, state) {
 
           var favStations = radioBloc.stations.where((el) => el.isFavourite == true).toList();
-          // radioBloc.eraseData('erased at FavPage'); //Ни на что не повлияло
-          // radioBloc.saveData('saved at FavPAge');
 
           if (favStations.length > 0) {
             return Expanded(
-              child: ListView.builder(
-                  scrollDirection: Axis.vertical,
-                  itemCount: favStations.length,
-                  itemBuilder: (context, index) =>
-                      Padding(
-                          padding: const EdgeInsets.all(5.0),
-                          child: StationCard(station: favStations[index])
-                      )),
+              child: Scrollbar(
+                showTrackOnHover: true,
+                thickness: 8,
+                radius: Radius.circular(3),
+                child: ListView.builder(
+                    scrollDirection: Axis.vertical,
+                    itemCount: favStations.length,
+                    itemBuilder: (context, index) =>
+                        Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: StationCard(station: favStations[index])
+                        )),
+              ),
             );
           }
 

@@ -22,13 +22,13 @@ class _SearchWidgetState extends State<SearchWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final styleActive = Genre_country;
-    final styleHint = search;
+    final styleActive = Search;
+    final styleHint = searchHint;
     final style = widget.text.isEmpty ? styleHint : styleActive;
 
     return Container(
       height: 35,
-      margin: const EdgeInsets.fromLTRB(5, 10, 5, 5),
+      margin: const EdgeInsets.fromLTRB(10, 10, 10, 5),
       child: TextField(
         cursorColor: Color(0xff9CA1AB),
         textAlignVertical: TextAlignVertical.center,

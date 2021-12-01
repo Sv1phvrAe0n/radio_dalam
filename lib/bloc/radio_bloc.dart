@@ -1,6 +1,6 @@
 import 'dart:convert';
-import 'package:flutter/services.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:radio/services/audio_handler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:radio/bloc/states.dart';
 import 'package:radio/bloc/user_event.dart';
@@ -15,9 +15,7 @@ class RadioBloc extends Bloc<UserEvent, RadioState> {
   final RadioApiProvider radiosRepository;
   RadioBloc(this.radiosRepository) : super(WelcomeState()); //Welcome state заменить при конфликте с initialState
 
-
-  final audioPlayer = AudioPlayer();
-  RadioModel? _selectedStation;
+  RadioModel? selectedStation;
   RadioModel? currentStation;
   RadioModel? favouriteStation;
   List<RadioModel> stations = [];
@@ -26,6 +24,7 @@ class RadioBloc extends Bloc<UserEvent, RadioState> {
   String? savedJsonString;
   String? savedListToString;
 
+  final audioPlayer = AudioPlayer();
 
   saveData(String str) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -102,35 +101,39 @@ class RadioBloc extends Bloc<UserEvent, RadioState> {
 
 LoadedRadiosState _createLoadedState() {
     saveData('SAVED at _createLoadedState');
-    return LoadedRadiosState(selectedStation: _selectedStation, loadedRadios: stations, favouriteStation: favouriteStation);
+    return LoadedRadiosState(selectedStation: selectedStation, loadedRadios: stations, favouriteStation: favouriteStation);
 }
 
 Stream<RadioState> _playAndChange (StationSelect event) async* {
 // saveData('saved at 15 40 from _playAndChange');
-  if (_selectedStation == event.selectedStation) {
+  if (selectedStation == event.selectedStation) {
+    // MyAudioHandler().stop();
     stopAudio();
     yield _createLoadedState();
-    yield _createLoadedState();
-    _selectedStation = null;
+    // yield _createLoadedState();
+    selectedStation = null;
     currentStation = null;
   }
 
-  else if (_selectedStation == null) {
-    _selectedStation = event.selectedStation;
-    currentStation = _selectedStation;
-    startAudio(_selectedStation!.uri);
+  else if (selectedStation == null) {
+    selectedStation = event.selectedStation;
+    currentStation = selectedStation;
+    // MyAudioHandler().startAudio(selectedStation!.uri);
+    startAudio(selectedStation!.uri);
     yield _createLoadedState();
+    print('playing: ${selectedStation!.uri}');
   }
 
-  else if (_selectedStation != event.selectedStation) {
+  else if (selectedStation != event.selectedStation) {
+    // MyAudioHandler().stop();
     stopAudio();
     currentStation = null;
-    _selectedStation = event.selectedStation;
-    currentStation = _selectedStation;
-    startAudio(_selectedStation!.uri);
+    selectedStation = event.selectedStation;
+    currentStation = selectedStation;
+    // MyAudioHandler().startAudio(selectedStation!.uri);
+    startAudio(selectedStation!.uri);
     yield _createLoadedState();
   }
-
 }
 
   Stream<RadioState> _favourites (ActionsWithFavourites event) async* {

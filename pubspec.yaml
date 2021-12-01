@@ -30,6 +30,9 @@ dependencies:
   json_annotation: ^4.3.0
   js: ^0.6.3
   shared_preferences: ^2.0.8
+  url_launcher: ^6.0.13
+  audio_service: ^0.18.1
+
 
 
 
@@ -49,9 +52,10 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
-#  assets:
-#    - lib/assets/images/heart_grey.png
-#    - lib/assets/images/heart_white.png
+  assets:
+    - lib/assets/images/not_found.png
+    - lib/assets/images/pyramid.png
+
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
